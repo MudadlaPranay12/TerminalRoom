@@ -1,0 +1,25 @@
+# Binary
+*.exe
+terminalroom
+
+# Host key (sensitive - never commit)
+host_key.pem
+
+# Go build artifacts
+*.test
+*.out
+*.prof
+
+# Go module cache
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
