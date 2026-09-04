@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/subtle"
 	"crypto/x509"
 	"encoding/pem"
 	"errors"
@@ -151,6 +152,18 @@ func broadcast(message string, sender ssh.Channel) {
 func main() {
 
 	// --------------------------------------------------------
+	// ROOM PASSWORD
+	// --------------------------------------------------------
+
+	roomPassword := os.Getenv("ROOM_PASSWORD")
+
+	if roomPassword == "" {
+		fmt.Println("[ERROR] ROOM_PASSWORD environment variable is not set.")
+		fmt.Println("[ERROR] Set ROOM_PASSWORD before starting the server.")
+		return
+	}
+
+	// --------------------------------------------------------
 	// PORT ENVIRONMENT VARIABLE
 	// --------------------------------------------------------
 
@@ -185,10 +198,13 @@ func main() {
 	// --------------------------------------------------------
 
 	config := &ssh.ServerConfig{
-		NoClientAuth: true,
+		PasswordCallback: func(conn ssh.ConnMetadata, password []byte) (*ssh.Permissions, error) {
+			if subtle.ConstantTimeCompare(password, []byte(roomPassword)) != 1 {
+				return nil, fmt.Errorf("incorrect password")
+			}
+			return &ssh.Permissions{}, nil
+		},
 
-		// Log every SSH connection attempt.
-		// This makes debugging much easier.
 		AuthLogCallback: func(conn ssh.ConnMetadata, method string, err error) {
 			fmt.Printf(
 				"[AUTH] User=%s Method=%s Error=%v\n",
