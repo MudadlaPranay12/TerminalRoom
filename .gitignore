@@ -1,16 +1,25 @@
-# Binary
-*.exe
+# Binaries
 terminalroom
+terminalroom-server
+terminalroom-client
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Host key (sensitive - never commit)
-host_key.pem
-
-# Go build artifacts
+# Test binary
 *.test
-*.out
-*.prof
 
-# Go module cache
+# Output
+*.out
+*.log
+
+# Go workspace
+go.work
+go.work.sum
+
+# Dependency directories
 vendor/
 
 # IDE
@@ -23,3 +32,10 @@ vendor/
 # OS
 .DS_Store
 Thumbs.db
+
+# TLS certificates (never commit private keys)
+certs/
+
+# Installer output (generated binaries — not tracked)
+installer/output/
+*.iss.bak
