@@ -1,0 +1,41 @@
+# Binaries
+terminalroom
+terminalroom-server
+terminalroom-client
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output
+*.out
+*.log
+
+# Go workspace
+go.work
+go.work.sum
+
+# Dependency directories
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TLS certificates (never commit private keys)
+certs/
+
+# Installer output (generated binaries — not tracked)
+installer/output/
+*.iss.bak
